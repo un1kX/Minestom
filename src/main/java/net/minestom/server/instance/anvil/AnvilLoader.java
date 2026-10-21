@@ -273,7 +273,11 @@ public class AnvilLoader implements ChunkLoader {
             if (blockName.equals("minecraft:air")) {
                 convertedPalette[i] = Block.AIR.stateId();
             } else {
-                Block block = Objects.requireNonNull(Block.fromKey(blockName), "Unknown block " + blockName);
+                Block block = Block.fromKey(blockName);
+                if (block == null) {
+                    LOGGER.warn("Unknown block '{}' found in anvil map! Replacing with AIR.", blockName);
+                    block = Block.AIR;
+                }
                 // Properties
                 CompoundBinaryTag propertiesNBT = paletteEntry.getCompound("properties");
                 if (propertiesNBT.isEmpty()) propertiesNBT = paletteEntry.getCompound("Properties");

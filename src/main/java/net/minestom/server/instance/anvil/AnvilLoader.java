@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -273,7 +272,7 @@ public class AnvilLoader implements ChunkLoader {
             if (blockName.equals("minecraft:air")) {
                 convertedPalette[i] = Block.AIR.stateId();
             } else {
-                Block block = Block.fromKey(blockName);
+                Block block = Block.fromKey(Key.key(blockName));
                 if (block == null) {
                     LOGGER.warn("Unknown block '{}' found in anvil map! Replacing with AIR.", blockName);
                     block = Block.AIR;
